@@ -1,4 +1,5 @@
 import os
+import uuid
 from time import time
 
 import pyaudio
@@ -58,7 +59,7 @@ class Observer:
             self.buffer += data
         
     def save2wav(self, data):
-        dir = os.path.join("new_marvins", f"{self.chunk_number}.wav")
+        dir = os.path.join("new_marvins", f"{uuid.uuid4()}.wav")
         wavfile.write(dir, self.RATE, data)
         return dir
 
@@ -67,7 +68,7 @@ class Observer:
         output = self.model.predict(data_array.reshape((1, -1)), self.RATE)
         res = np.argmax(output[0])
         print(res)
-        if res != 0:
+        if res == 1:
             self.save2wav(data_array)
             self.react_to_catch_phrase()
             # self.speech2text.transcribe_speech(data)
