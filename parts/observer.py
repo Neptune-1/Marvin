@@ -40,6 +40,7 @@ class Observer:
             channels=self.CHANNELS,
             rate=self.RATE,
             input=True,
+            input_device_index=1
         )
 
     def stop(self):
